@@ -6,7 +6,7 @@ import youImage from "../you.png";
 
 // 環境変数に入れる
 // const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "Your Key";
 
 // OpenAIのAPIエンドポイント
 const OPENAI_API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
