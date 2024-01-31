@@ -3,10 +3,16 @@ import "./SpeechToChatGPT.css";
 import idleMovie from "../movie/man1.mp4";
 import idleImage from "../idelepc.png";
 import youImage from "../you.png";
+import {
+  BsFillSendFill,
+  BsStopCircle,
+  BsMic,
+  BsFillMicFill,
+} from "react-icons/bs";
 
 // 環境変数に入れる
 // const OPENAI_API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
-const OPENAI_API_KEY = "Your Key";
+const OPENAI_API_KEY = "APIキー";
 
 // OpenAIのAPIエンドポイント
 const OPENAI_API_ENDPOINT = "https://api.openai.com/v1/chat/completions";
@@ -75,6 +81,7 @@ const SpeechToChatGPT = () => {
   const UserIconWithName = ({ name, iconUrl }) => {
     return (
       <div className="user-icon-with-name">
+        <i class="bi bi-mic-fill"></i>
         <img src={iconUrl} alt={`${name} icon`} className="user-icon" />
         <div className="user-name">{name}</div>
       </div>
@@ -197,6 +204,7 @@ const SpeechToChatGPT = () => {
             <source src={idleMovie} type="video/mp4" />
           </video>
         </div>
+
         <div className="chat-container">
           <button className="clear-history" onClick={clearHistory}>
             &times;
@@ -212,43 +220,46 @@ const SpeechToChatGPT = () => {
           ))}
         </div>
       </div>
-      <div className="controls-container">
+
+      <div className="transcript-and-send-container">
+        <div className="language">
+          <button
+            className={`language-btn ${language === "ja-JP" ? "selected" : ""}`}
+            onClick={() => setLanguage("ja-JP")}
+          >
+            日
+          </button>
+          <button
+            className={`language-btn ${language === "en-US" ? "selected" : ""}`}
+            onClick={() => setLanguage("en-US")}
+          >
+            英
+          </button>
+        </div>
+        <div className="textarea-container">
+          <textarea value={transcript} onChange={handleChange} />
+          <button className="clear-btn" onClick={clearTranscript}>
+            ×
+          </button>
+        </div>
         {!isRecording && (
           <button className="start-btn" onClick={startRecognition}>
-            Recognition Start
+            <BsMic className="icon" />
           </button>
         )}
         {isRecording && (
           <button className="stop-btn" onClick={stopRecognition}>
-            Recognition Stop
+            <BsFillMicFill className="icon" />
           </button>
         )}
-        <button
-          className={language === "en-US" ? "selected" : ""}
-          onClick={() => setLanguage("en-US")}
-        >
-          English
-        </button>
-        <button
-          className={language === "ja-JP" ? "selected" : ""}
-          onClick={() => setLanguage("ja-JP")}
-        >
-          日本語
-        </button>
-      </div>
 
-      <div className="transcript-and-send-container">
-        <textarea value={transcript} onChange={handleChange} />
-        <button className="clear-btn" onClick={clearTranscript}>
-          ×
-        </button>
         {isSpeaking ? (
           <button className="stop-speaking-btn" onClick={stopSpeaking}>
-            ■
+            <BsStopCircle className="icon-large" />
           </button>
         ) : (
           <button className="send-btn" onClick={sendToChatGPT}>
-            send
+            <BsFillSendFill className="icon" />
           </button>
         )}
       </div>
